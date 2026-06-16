@@ -954,8 +954,7 @@
     const templateFiles = {
       timetable: {
         filename: "weekly-study-timetable.txt",
-        content:
-`WEEKLY STUDY TIMETABLE
+        content: `WEEKLY STUDY TIMETABLE
 
 Monday:
 - Subject:
@@ -998,78 +997,92 @@ Sunday:
       },
       assignment: {
         filename: "assignment-tracker.txt",
-        content:
-`ASSIGNMENT TRACKER
+        content: `ASSIGNMENT TRACKER
 
-Assignment Name:
-Subject:
-Teacher:
-Due Date:
+Assignment Name: ________________
+Subject: ________________
+Description: ________________
+
+Due Date: ________________
 Priority: High / Medium / Low
 
 Tasks:
-1.
-2.
-3.
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
 
-Progress:
-Not Started / In Progress / Completed
+Progress: ______% Complete
 
 Notes:
+________________
+________________
+
+Status: Not Started / In Progress / Completed
 `
       },
       checklist: {
         filename: "exam-revision-checklist.txt",
-        content:
-`EXAM REVISION CHECKLIST
+        content: `EXAM REVISION CHECKLIST
 
-Subject:
-Exam Date:
+Exam Subject: ________________
+Exam Date: ________________
+Duration: ________________
 
-Revision Topics:
-[ ] Topic 1
-[ ] Topic 2
-[ ] Topic 3
-[ ] Topic 4
+TOPICS TO COVER:
+- [ ] Topic 1
+- [ ] Topic 2
+- [ ] Topic 3
+- [ ] Topic 4
+- [ ] Topic 5
+- [ ] Topic 6
 
-Practice:
-[ ] Past papers completed
-[ ] Flashcards reviewed
-[ ] Weak topics revised
-[ ] Formula sheet prepared
-[ ] Notes summarized
+REVISION ACTIVITIES:
+- [ ] Read textbook chapters
+- [ ] Make summary notes
+- [ ] Create mind maps
+- [ ] Solve practice problems
+- [ ] Review past papers
+- [ ] Group study sessions
+- [ ] One-on-one tutoring
 
-Before Exam:
-[ ] Sleep well
-[ ] Pack stationery
-[ ] Arrive early
+FINAL PREPARATION:
+- [ ] Review all notes
+- [ ] Attempt mock exams
+- [ ] Get good sleep
+- [ ] Eat healthy meals
+- [ ] Arrive early for exam
+
+EXAM DAY CHECKLIST:
+- [ ] Bring pens/pencils
+- [ ] Bring calculator (if allowed)
+- [ ] Bring ID/admission ticket
+- [ ] Have breakfast
+- [ ] Relax and breathe
+- [ ] Read questions carefully
+- [ ] Manage time wisely
+
+Good Luck! You've got this! 💪
 `
       }
     };
 
-    function downloadTemplate(templateKey) {
-      const file = templateFiles[templateKey];
-      if (!file) return;
+    // Download functionality
+    document.querySelectorAll('.download-card button').forEach(function(button) {
+      button.addEventListener('click', function() {
+        const templateKey = this.dataset.template;
+        const template = templateFiles[templateKey];
 
-      const blob = new Blob([file.content], {
-        type: "text/plain;charset=utf-8"
-      });
-
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-
-      link.href = url;
-      link.download = file.filename;
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    }
-
-    document.querySelectorAll("[data-template]").forEach(function (button) {
-      button.addEventListener("click", function () {
-        downloadTemplate(button.dataset.template);
+        if (template) {
+          const blob = new Blob([template.content], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = template.filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
       });
     });
   </script>
